@@ -13,4 +13,18 @@ app.use('/days', daysRoute);
 app.use('/timeslots', timeslotsRoute);
 app.use('/book', bookRoute);
 
+app.use((request, response, next) => {
+    const error = new Error('Not found');
+    error.status = 404;
+    next(error);
+});
+
+app.use((error, request, response) => {
+    response.status(error.status || 500);
+    response.json({
+        success: false,
+        message: error.message
+    })
+});
+
 module.exports = app;

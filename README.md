@@ -22,5 +22,5 @@
 ---
 
 ##### Running the server locally
-Make sure to have the latest stable version of Node installed or above. Run `npm install` from the root of this project folder in the terminal to install all the package dependencies. Then run `npm start` to start the server.
+Make sure to have the latest stable version of Node installed or above. Run `npm install` from the root of this project folder in the terminal to install all the package dependencies. Then run `npm start` to start the server. Be default the server runs on `localhost:4000`
 

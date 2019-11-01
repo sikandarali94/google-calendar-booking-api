@@ -44,3 +44,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# API client secrets & token
+/api/calendar/credentials.json
+/api/calendar/token.json

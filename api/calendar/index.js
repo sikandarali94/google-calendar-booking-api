@@ -2,7 +2,7 @@ const fs = require('fs');
 const readline = require('readline');
 const { google } = require('googleapis');
 
-const SCOPES = ['https://www.googleapis.com/auth/calendar'];
+const SCOPE = ['https://www.googleapis.com/auth/calendar'];
 const TOKEN_PATH = 'token.json';
 const CREDENTIALS_PATH = 'credentials.json';
 
@@ -66,7 +66,7 @@ class GoogleCalendar {
 class Singleton {
     constructor() {
         if (!Singleton.instance) {
-            Singleton.instance = new GoogleCalendar(SCOPES, TOKEN_PATH, CREDENTIALS_PATH);
+            Singleton.instance = new GoogleCalendar(CREDENTIALS_PATH, TOKEN_PATH, SCOPE);
         }
     }
 

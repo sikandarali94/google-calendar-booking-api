@@ -46,5 +46,6 @@ testem.log
 Thumbs.db
 
 # API client secrets & token
-/api/calendar/credentials.json
-/api/calendar/token.json
+/credentials.json
+token.json
+nodemon.json

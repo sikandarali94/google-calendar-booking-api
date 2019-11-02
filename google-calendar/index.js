@@ -2,42 +2,38 @@ const fs = require('fs');
 const readline = require('readline');
 const { google } = require('googleapis');
 
-const SCOPE = ['https://www.googleapis.com/auth/calendar'];
-const TOKEN_PATH = 'token.json';
-const CREDENTIALS_PATH = 'credentials.json';
-
 class GoogleCalendar {
-    constructor(credentialsPath, tokenPath, scope) {
-        this.authorizeClient(credentialsPath, tokenPath, scope);
+    constructor(credentialsPath, tokenPath) {
+        this.authorizeClient(credentialsPath, tokenPath);
         this.authToken = null;
     }
 
-    authorizeClient(credentialsPath, tokenPath, scope) {
-        fs.readFile(CREDENTIALS_PATH, (error, credentialsPath) => {
+    authorizeClient(credentialsPath, tokenPath) {
+        fs.readFile(credentialsPath, (error, credentials) => {
             if (error) {
                 return console.error('Error loading client secret file: ', error);
             }
-            this.authorize(JSON.parse(credentialsPath.toString()), tokenPath, scope);
+            this.authorize(JSON.parse(credentials.toString()), tokenPath);
         });
     }
 
-    authorize(credentials, tokenPath, scope) {
+    authorize(credentials, tokenPath) {
         const { client_secret, client_id, redirect_uris } = credentials.installed;
         const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
 
-        fs.readFile(tokenPath, (error, tokenPath) => {
+        fs.readFile(tokenPath, (error, token) => {
             if (error) {
-                return this.getAccessToken(oAuth2Client, tokenPath, scope);
+                return this.getAccessToken(oAuth2Client, tokenPath);
             }
-            oAuth2Client.setCredentials(JSON.parse(tokenPath.toString()));
+            oAuth2Client.setCredentials(JSON.parse(token.toString()));
             this.authToken = oAuth2Client;
         })
     }
 
-    getAccessToken(oAuth2Client, tokenPath, scope) {
+    getAccessToken(oAuth2Client, tokenPath) {
         const authUrl = oAuth2Client.generateAuthUrl({
             access_type: 'offline',
-            scope
+            scope: process.env.SCOPE
         });
         console.log('Authorize this app by visiting this url: ', authUrl);
         const rl = readline.createInterface({
@@ -66,7 +62,7 @@ class GoogleCalendar {
 class Singleton {
     constructor() {
         if (!Singleton.instance) {
-            Singleton.instance = new GoogleCalendar(CREDENTIALS_PATH, TOKEN_PATH, SCOPE);
+            Singleton.instance = new GoogleCalendar(process.env.CREDENTIALS_PATH, process.env.TOKEN_PATH);
         }
     }
 

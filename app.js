@@ -1,12 +1,10 @@
 const express = require('express');
 const morgan = require('morgan');
 
-const GoogleCalendar = require('./google-calendar');
 const daysRoute = require('./api/routes/days');
 const timeslotsRoute = require('./api/routes/timeslots');
 const bookRoute = require('./api/routes/book');
 
-const calendar = new GoogleCalendar().getInstance();
 const app = express();
 
 app.use(morgan('dev'));

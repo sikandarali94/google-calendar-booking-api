@@ -3,8 +3,8 @@ const readline = require('readline');
 const { google } = require('googleapis');
 
 class GoogleCalendar {
-    constructor(credentialsPath, tokenPath) {
-        this.authorizeClient(credentialsPath, tokenPath);
+    constructor() {
+        this.authorizeClient(process.env.CREDENTIALS_PATH, process.env.TOKEN_PATH);
         this.authToken = null;
     }
 
@@ -59,16 +59,4 @@ class GoogleCalendar {
     }
 }
 
-class Singleton {
-    constructor() {
-        if (!Singleton.instance) {
-            Singleton.instance = new GoogleCalendar(process.env.CREDENTIALS_PATH, process.env.TOKEN_PATH);
-        }
-    }
-
-    getInstance() {
-        return Singleton.instance;
-    }
-}
-
-module.exports = Singleton;
+module.exports = GoogleCalendar;

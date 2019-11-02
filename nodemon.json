@@ -1,0 +1,9 @@
+{
+  "env": {
+    "SCOPE": "https://www.googleapis.com/auth/calendar",
+    "TOKEN_PATH": "token.json",
+    "CREDENTIALS_PATH": "credentials.json",
+    "CALENDAR_VERSION": "v3",
+    "CALENDAR_ID": "suvictorum@gmail.com"
+  }
+}

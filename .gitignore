@@ -48,4 +48,3 @@ Thumbs.db
 # API client secrets & token
 /credentials.json
 token.json
-nodemon.json
